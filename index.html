@@ -1,374 +1,507 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronos Symposium 2026</title>
+    <title>VGLUG College Symposium 2026</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --glass-bg: rgba(15, 23, 42, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --accent-primary: #818cf8;
-            --deep-dark: #020617;
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBlue: '#0f172a',
+                        neonGreen: '#39ff14',
+                        slateGray: '#94a3b8',
+                        accent: '#22d3ee',
+                        darkBg: '#020617'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
         }
-
-        body {
-            background-color: var(--deep-dark);
-            color: #f1f5f9;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, .nav-link {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .hero-gradient {
-            background: 
-                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
-                linear-gradient(180deg, #020617 0%, #0f172a 100%);
-            background-attachment: fixed;
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .glass-card:hover {
-            border-color: rgba(129, 140, 248, 0.3);
-            transform: translateY(-8px);
-            background: rgba(30, 41, 59, 0.7);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-        }
-
-        .nav-blur {
-            backdrop-filter: blur(12px);
-            background: rgba(2, 6, 23, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .page-content {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-
-        .page-content.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        input::placeholder {
-            color: #475569;
-        }
-
-        .success-message {
-            display: none;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid #10b981;
-            color: #10b981;
-            padding: 1.25rem;
-            border-radius: 16px;
-            margin-top: 1rem;
-            text-align: center;
-        }
-        
-        .nav-active {
-            color: #818cf8 !important;
-            border-bottom: 2px solid #818cf8;
-        }
-
-        /* Avatar Placeholder Styling */
-        .avatar-placeholder {
-            background: linear-gradient(45deg, #1e293b, #0f172a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #475569;
-            font-weight: bold;
-            font-size: 2rem;
-        }
-
-        .orator-img {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .group:hover .orator-img {
-            transform: scale(1.1);
-        }
-    </style>
+    </script>
 </head>
-<body class="hero-gradient min-h-screen">
+
+<body class="bg-darkBg text-slate-100 font-sans selection:bg-neonGreen selection:text-deepBlue">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 nav-blur">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
-                <div class="w-7 h-7 bg-indigo-500 rounded-sm rotate-45 animate-pulse"></div>
-                <span class="text-xl font-bold tracking-tighter">CHRONOS <span class="text-indigo-500">SYM</span></span>
+    <nav class="fixed top-0 w-full z-50 bg-deepBlue/80 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-heading font-bold text-white tracking-wider">
+                        VGLUG <span class="text-neonGreen">SYMPOSIUM</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home"
+                            class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#events"
+                            class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition-colors">Events</a>
+                        <a href="#domains"
+                            class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition-colors">Domains</a>
+                        <a href="#prizes"
+                            class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition-colors">Prizes</a>
+                        <a href="#prizes"
+                            class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition-colors">Prizes</a>
+                        <a href="#contact"
+                            class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                        <a href="admin.html"
+                            class="hover:text-neonGreen px-3 py-2 rounded-md text-sm font-medium transition-colors"><i
+                                class="fas fa-lock text-xs"></i> Admin</a>
+                        <a href="#register"
+                            class="bg-neonGreen text-deepBlue px-5 py-2 rounded-full font-bold hover:bg-white transition-all transform hover:scale-105">Register
+                            Now</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
-            <div class="hidden md:flex space-x-10 text-xs font-semibold uppercase tracking-widest text-slate-500">
-                <button onclick="navigateTo('vision')" id="nav-vision" class="hover:text-indigo-400 transition-colors py-2">Vision</button>
-                <button onclick="navigateTo('sessions')" id="nav-sessions" class="hover:text-indigo-400 transition-colors py-2">Sessions</button>
-                <button onclick="navigateTo('orators')" id="nav-orators" class="hover:text-indigo-400 transition-colors py-2">Orators</button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-deepBlue/95 backdrop-blur-md border-t border-white/10" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home"
+                    class="text-gray-300 hover:text-neonGreen block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
+                <a href="#events"
+                    class="text-gray-300 hover:text-neonGreen block px-3 py-2 rounded-md text-base font-medium transition-colors">Events</a>
+                <a href="#domains"
+                    class="text-gray-300 hover:text-neonGreen block px-3 py-2 rounded-md text-base font-medium transition-colors">Domains</a>
+                <a href="#prizes"
+                    class="text-gray-300 hover:text-neonGreen block px-3 py-2 rounded-md text-base font-medium transition-colors">Prizes</a>
+                <a href="#contact"
+                    class="text-gray-300 hover:text-neonGreen block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
+                <a href="admin.html"
+                    class="text-gray-300 hover:text-neonGreen block px-3 py-2 rounded-md text-base font-medium transition-colors"><i
+                        class="fas fa-lock mr-2"></i> Admin</a>
+                <a href="#register"
+                    class="bg-neonGreen text-deepBlue block px-3 py-2 rounded-md text-base font-bold transition-colors mt-4 text-center">Register
+                    Now</a>
             </div>
-            <button onclick="navigateTo('register')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-7 py-2.5 rounded-full text-sm font-bold transition-all shadow-xl shadow-indigo-900/40">
-                Register Seat
-            </button>
         </div>
     </nav>
 
-    <!-- Content Area -->
-    <main class="pt-32 pb-24 px-6 min-h-[80vh]">
-        <div class="max-w-7xl mx-auto">
-            
-            <!-- HOME PAGE -->
-            <section id="page-home" class="page-content active text-center">
-                <div class="inline-block px-5 py-2 mb-8 rounded-full border border-slate-800 bg-slate-900/50 text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] animate-pulse">
-                    Exploring the Event Horizon
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-neonGreen/10 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <div
+                class="mb-6 inline-block px-4 py-1 rounded-full border border-neonGreen/30 bg-neonGreen/10 text-neonGreen text-sm font-semibold tracking-wide animate-pulse">
+                COMING SOON
+            </div>
+            <h1 class="text-5xl md:text-7xl font-heading font-bold mb-6 leading-tight">
+                🎓 INTER-COLLEGE<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonGreen to-accent">SYMPOSIUM
+                    2026</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slateGray mb-10 font-light">
+                Presented by <span class="font-semibold text-white">VGLUG College</span>
+            </p>
+
+            <!-- Countdown Timer -->
+            <div id="countdown" class="flex flex-wrap justify-center gap-6 mb-12">
+                <!-- Javascript will populate this -->
+            </div>
+
+            <a href="#register"
+                class="inline-block bg-neonGreen text-deepBlue text-lg font-bold px-10 py-4 rounded-full shadow-[0_0_20px_rgba(57,255,20,0.4)] hover:shadow-[0_0_30px_rgba(57,255,20,0.6)] hover:bg-white transition-all transform hover:-translate-y-1">
+                Register Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Event Highlights -->
+    <section id="events" class="py-24 bg-deepBlue/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-heading font-bold mb-4">Event <span
+                        class="text-neonGreen">Highlights</span></h2>
+                <div class="w-24 h-1 bg-neonGreen mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Technical Events -->
+                <div
+                    class="bg-slate-900/50 p-8 rounded-3xl border border-white/5 backdrop-blur-sm hover:border-accent/30 transition-all duration-300 group">
+                    <div class="flex items-center mb-8">
+                        <div
+                            class="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center mr-4 group-hover:bg-accent/30 transition-colors">
+                            <i class="fas fa-microchip text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-heading">Technical Events</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-neonGreen mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-lg">Paper Presentation</h4>
+                                <p class="text-sm text-slateGray">Present your innovative ideas on emerging
+                                    technologies.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-bug text-neonGreen mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-lg">Debugging</h4>
+                                <p class="text-sm text-slateGray">Find and fix bugs in complex code snippets.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <h1 class="text-6xl md:text-9xl font-bold mb-10 leading-[0.9] tracking-tighter">
-                    Architecture of <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-b from-indigo-300 to-indigo-600">Pure Thought.</span>
-                </h1>
-                <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-                    Parithi, welcome to the apex of intellectual exchange. A sanctuary for the recursive nature of time and the digital ghosts of our future.
+
+                <!-- Non-Technical Events -->
+                <div
+                    class="bg-slate-900/50 p-8 rounded-3xl border border-white/5 backdrop-blur-sm hover:border-pink-500/30 transition-all duration-300 group">
+                    <div class="flex items-center mb-8">
+                        <div
+                            class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mr-4 group-hover:bg-pink-500/30 transition-colors">
+                            <i class="fas fa-users text-pink-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-heading">Non-Technical Events</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-network-wired text-pink-500 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-lg">Connection</h4>
+                                <p class="text-sm text-slateGray">Connect the clues to find the answer.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-palette text-pink-500 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-lg">Drawing</h4>
+                                <p class="text-sm text-slateGray">Unleash your creativity on the canvas.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-question-circle text-pink-500 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-lg">Quiz</h4>
+                                <p class="text-sm text-slateGray">Test your general knowledge and tech trivia.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Domains Section -->
+    <section id="domains" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-heading font-bold mb-4">Focus <span
+                        class="text-accent">Domains</span></h2>
+                <p class="text-slateGray max-w-2xl mx-auto">Explore the cutting-edge technologies shaping our future.
                 </p>
-                <div class="flex justify-center gap-6">
-                    <button onclick="navigateTo('vision')" class="px-8 py-4 border border-slate-700 rounded-full hover:bg-white/5 transition-all font-semibold">Our Vision</button>
-                    <button onclick="navigateTo('register')" class="px-8 py-4 bg-white text-black rounded-full hover:bg-slate-200 transition-all font-semibold">Join the Circle</button>
-                </div>
-            </section>
+            </div>
 
-            <!-- VISION PAGE -->
-            <section id="page-vision" class="page-content">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-5xl font-bold mb-12 tracking-tight">The Core <span class="text-indigo-500">Manifesto</span></h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
-                        <div class="space-y-6">
-                            <p class="text-indigo-400 font-bold uppercase tracking-widest text-xs">01. Temporal Integrity</p>
-                            <p class="text-slate-300 leading-relaxed">We believe that the past is not a static memory but a living architecture. Chronos Symposium serves as the bridge where ancient wisdom is decoded through quantum computing.</p>
-                        </div>
-                        <div class="space-y-6">
-                            <p class="text-indigo-400 font-bold uppercase tracking-widest text-xs">02. Human-Machine Synthesis</p>
-                            <p class="text-slate-300 leading-relaxed">The symposium rejects the binary of "us versus them." We explore the symbiotic expansion of human consciousness through neural-interfacing and latent-space creation.</p>
-                        </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- AI -->
+                <div
+                    class="p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border border-white/5 hover:-translate-y-2 transition-transform duration-300 text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                        <i class="fas fa-brain text-4xl text-blue-400"></i>
                     </div>
-                    <div class="mt-20 p-12 glass-card text-center border-indigo-500/20">
-                        <h3 class="text-2xl font-bold mb-4">"The future is a memory we haven't accessed yet."</h3>
-                        <p class="text-slate-500 italic">— Lead Architect, Symposium 2026</p>
-                    </div>
+                    <h3 class="text-xl font-bold mb-2">Artificial Intelligence</h3>
                 </div>
-            </section>
 
-            <!-- SESSIONS PAGE -->
-            <section id="page-sessions" class="page-content">
-                <h2 class="text-5xl font-bold mb-16 text-center tracking-tight">Symposium <span class="text-indigo-500">Agenda</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div class="glass-card p-10 text-left group">
-                        <div class="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-8 border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-all text-indigo-400 font-bold">10:00</div>
-                        <h3 class="text-2xl font-bold mb-5 text-slate-100">Temporal Ethics</h3>
-                        <p class="text-slate-500 text-sm leading-loose mb-6">A philosophical audit of time-dilated communication and the rights of post-biological entities.</p>
-                        <span class="text-[10px] text-indigo-400 font-bold uppercase tracking-widest">Main Hall Alpha</span>
+                <!-- IoT -->
+                <div
+                    class="p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border border-white/5 hover:-translate-y-2 transition-transform duration-300 text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-green-500/20 transition-colors">
+                        <i class="fas fa-wifi text-4xl text-green-400"></i>
                     </div>
-                    <div class="glass-card p-10 text-left group">
-                        <div class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-8 border border-purple-500/20 group-hover:bg-purple-500/20 transition-all text-purple-400 font-bold">13:00</div>
-                        <h3 class="text-2xl font-bold mb-5 text-slate-100">Neural Renaissance</h3>
-                        <p class="text-slate-500 text-sm leading-loose mb-6">Synthesizing the classic masters through synaptic-link artistry and latent space sculpting.</p>
-                        <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest">Digital Sanctuary</span>
-                    </div>
-                    <div class="glass-card p-10 text-left group">
-                        <div class="w-14 h-14 bg-teal-500/10 rounded-2xl flex items-center justify-center mb-8 border border-teal-500/20 group-hover:bg-teal-500/20 transition-all text-teal-400 font-bold">16:00</div>
-                        <h3 class="text-2xl font-bold mb-5 text-slate-100">Planetary Logic</h3>
-                        <p class="text-slate-500 text-sm leading-loose mb-6">Rebuilding the global stack using mycelial networking principles for radical resilience.</p>
-                        <span class="text-[10px] text-teal-400 font-bold uppercase tracking-widest">The Core Vault</span>
-                    </div>
+                    <h3 class="text-xl font-bold mb-2">Internet of Things</h3>
                 </div>
-            </section>
 
-            <!-- ORATORS PAGE -->
-            <section id="page-orators" class="page-content">
-                <h2 class="text-5xl font-bold mb-16 text-center tracking-tight">The <span class="text-indigo-500">Orators</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Orator 1 -->
-                    <div class="glass-card overflow-hidden group">
-                        <div class="h-80 relative overflow-hidden">
-                            <!-- Update 'src' with actual image URLs -->
-                            <img src="aris-thorne.jpg" alt="Dr. Aris Thorne" class="orator-img w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="avatar-placeholder w-full h-full hidden">AT</div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                            <div class="absolute bottom-6 left-6">
-                                <p class="text-xs text-indigo-400 font-bold uppercase mb-1">Dr. Aris Thorne</p>
-                                <p class="text-white font-bold text-xl">Temporal Theorist</p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-500 text-xs italic">"We are the ancestors of a digital species."</p>
-                        </div>
+                <!-- Green Tech -->
+                <div
+                    class="p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border border-white/5 hover:-translate-y-2 transition-transform duration-300 text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-teal-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
+                        <i class="fas fa-leaf text-4xl text-teal-400"></i>
                     </div>
-                    <!-- Orator 2 -->
-                    <div class="glass-card overflow-hidden group">
-                        <div class="h-80 relative overflow-hidden">
-                            <img src="lyra-keth.jpg" alt="Lyra Keth" class="orator-img w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="avatar-placeholder w-full h-full hidden">LK</div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                            <div class="absolute bottom-6 left-6">
-                                <p class="text-xs text-indigo-400 font-bold uppercase mb-1">Lyra Keth</p>
-                                <p class="text-white font-bold text-xl">Neural Architect</p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-500 text-xs italic">"Code is the new soul."</p>
-                        </div>
-                    </div>
-                    <!-- Orator 3 -->
-                    <div class="glass-card overflow-hidden group">
-                        <div class="h-80 relative overflow-hidden">
-                            <img src="marcus-vane.jpg" alt="Marcus Vane" class="orator-img w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="avatar-placeholder w-full h-full hidden">MV</div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                            <div class="absolute bottom-6 left-6">
-                                <p class="text-xs text-indigo-400 font-bold uppercase mb-1">Marcus Vane</p>
-                                <p class="text-white font-bold text-xl">Planetary Strategist</p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-500 text-xs italic">"Nature is the ultimate algorithm."</p>
-                        </div>
-                    </div>
-                    <!-- Orator 4 -->
-                    <div class="glass-card overflow-hidden group">
-                        <div class="h-80 relative overflow-hidden">
-                            <img src="sia-jaxon.jpg" alt="Sia Jaxon" class="orator-img w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            <div class="avatar-placeholder w-full h-full hidden">SJ</div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                            <div class="absolute bottom-6 left-6">
-                                <p class="text-xs text-indigo-400 font-bold uppercase mb-1">Sia Jaxon</p>
-                                <p class="text-white font-bold text-xl">Ethical Hacker</p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-500 text-xs italic">"Transparency is a survival trait."</p>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-bold mb-2">Green Tech</h3>
                 </div>
-            </section>
 
-            <!-- REGISTER PAGE -->
-            <section id="page-register" class="page-content">
-                <div class="max-w-2xl mx-auto glass-card p-12 border-slate-800">
-                    <div class="text-center mb-10">
-                        <h2 class="text-4xl font-bold mb-3 text-white">Join the Circle</h2>
-                        <p class="text-slate-500 text-sm">Parithi, confirm your identity to be woven into the fabric of the 2026 Symposium.</p>
+                <!-- Machine Learning -->
+                <div
+                    class="p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border border-white/5 hover:-translate-y-2 transition-transform duration-300 text-center group">
+                    <div
+                        class="w-20 h-20 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
+                        <i class="fas fa-robot text-4xl text-purple-400"></i>
                     </div>
-                    
-                    <form id="reg-form" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-3">Identity</label>
-                                <input type="text" id="user-name" required placeholder="Parithi" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-indigo-600 transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-3">Comm Node</label>
-                                <input type="email" required placeholder="parithi@domain.ai" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-indigo-600 transition-all">
-                            </div>
-                        </div>
+                    <h3 class="text-xl font-bold mb-2">Machine Learning</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prize Table -->
+    <section id="prizes" class="py-24 bg-deepBlue/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-heading font-bold mb-4">Prize <span
+                        class="text-yellow-400">Pool</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
+                <!-- 2nd Prize -->
+                <div
+                    class="order-2 md:order-1 bg-slate-900/80 p-8 rounded-3xl border border-white/5 text-center transform hover:scale-105 transition-all">
+                    <div class="text-4xl mb-4">🥈</div>
+                    <h3 class="text-2xl font-bold text-slate-300 mb-2">Runner Up</h3>
+                    <div class="text-4xl font-bold text-white mb-4">₹1,000</div>
+                    <ul class="text-sm text-slateGray space-y-2">
+                        <li>Certificate of Merit</li>
+                        <li>Swag Kit</li>
+                    </ul>
+                </div>
+
+                <!-- 1st Prize -->
+                <div
+                    class="order-1 md:order-2 bg-gradient-to-b from-slate-800 to-slate-900 p-10 rounded-t-3xl rounded-b-3xl border-2 border-yellow-500/50 text-center transform scale-110 shadow-2xl relative z-10">
+                    <div
+                        class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black font-bold px-4 py-1 rounded-full text-sm uppercase tracking-wider">
+                        Champion</div>
+                    <div class="text-6xl mb-6">🏆</div>
+                    <h3 class="text-3xl font-bold text-yellow-400 mb-2">Winner</h3>
+                    <div class="text-5xl font-bold text-white mb-6">₹2,000</div>
+                    <ul class="text-sm text-slate-300 space-y-2">
+                        <li>Official Trophy</li>
+                        <li>Certificate of Excellence</li>
+                        <li>Exclusive Internship Offer</li>
+                    </ul>
+                </div>
+
+                <!-- 3rd Prize -->
+                <div
+                    class="order-3 bg-slate-900/80 p-8 rounded-3xl border border-white/5 text-center transform hover:scale-105 transition-all">
+                    <div class="text-4xl mb-4">🥉</div>
+                    <h3 class="text-2xl font-bold text-slate-300 mb-2">Second Runner Up</h3>
+                    <div class="text-4xl font-bold text-white mb-4">₹500</div>
+                    <ul class="text-sm text-slateGray space-y-2">
+                        <li>Certificate of Merit</li>
+                        <li>Goodies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="py-24 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-slate-900/90 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-heading font-bold mb-2">Register <span class="text-neonGreen">Now</span>
+                    </h2>
+                    <p class="text-slateGray">Secure your spot at the symposium.</p>
+                </div>
+
+                <form id="registrationForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Team Leader Name -->
                         <div>
-                            <label class="block text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-3">Primary Discipline</label>
-                            <select class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-indigo-600 transition-all">
-                                <option>Neural Engineering</option>
-                                <option>Temporal Philosophy</option>
-                                <option>Planetary Resilience</option>
-                                <option>Digital Arts</option>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Team Leader Name</label>
+                            <input type="text" name="teamLeader" required
+                                class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors"
+                                placeholder="John Doe">
+                        </div>
+
+                        <!-- College -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">College Name</label>
+                            <input type="text" name="college" required
+                                class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors"
+                                placeholder="VGLUG College">
+                        </div>
+
+                        <!-- Department -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Department</label>
+                            <input type="text" name="department" required
+                                class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors"
+                                placeholder="CSE / IT / ECE">
+                        </div>
+
+                        <!-- Year -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Year of Study</label>
+                            <select name="year" required
+                                class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors">
+                                <option value="" disabled selected>Select Year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
                             </select>
                         </div>
-                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-5 rounded-2xl font-bold transition-all mt-6 shadow-2xl shadow-indigo-900/50">
-                            Initialize Connection
-                        </button>
-                    </form>
 
-                    <div id="success-msg" class="success-message">
-                        <p class="font-bold text-xl">Transmission Complete.</p>
-                        <p class="text-sm mt-2 opacity-80">Welcome, Parithi. Check your digital node for coordinates.</p>
-                        <button onclick="navigateTo('home')" class="mt-6 text-indigo-400 text-xs uppercase font-bold tracking-widest hover:text-white">Back to Horizon</button>
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors"
+                                placeholder="john@example.com">
+                            <p id="emailError" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email
+                                address.</p>
+                        </div>
+
+                        <!-- Mobile -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Mobile Number</label>
+                            <input type="tel" id="mobile" name="mobile" required
+                                class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors"
+                                placeholder="9876543210" maxlength="10">
+                            <p id="mobileError" class="text-red-500 text-xs mt-1 hidden">Mobile number must be exactly
+                                10 digits.</p>
+                        </div>
                     </div>
-                </div>
-            </section>
 
+                    <!-- Member Details -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Team Member Details</label>
+                        <textarea name="members" rows="3"
+                            class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors"
+                            placeholder="Name, Year, Dept of other members (if any)"></textarea>
+                    </div>
+
+                    <!-- Event Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Select Event to Participate</label>
+                        <select name="event" required
+                            class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors">
+                            <option value="" disabled selected>Choose an event</option>
+                            <option value="paper">Paper Presentation</option>
+                            <option value="debugging">Debugging</option>
+                            <option value="connection">Connection</option>
+                            <option value="drawing">Drawing</option>
+                            <option value="quiz">Quiz</option>
+                        </select>
+                    </div>
+
+                    <!-- Food Preference -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-3">Food Preference</label>
+                        <div class="flex space-x-6">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="food" value="veg" checked
+                                    class="form-radio text-neonGreen focus:ring-neonGreen bg-deepBlue border-slate-700">
+                                <span>Vegetarian</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="food" value="nonveg"
+                                    class="form-radio text-neonGreen focus:ring-neonGreen bg-deepBlue border-slate-700">
+                                <span>Non-Vegetarian</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full bg-neonGreen hover:bg-white text-deepBlue font-bold py-4 rounded-xl transition-all transform active:scale-95 shadow-lg">
+                        Confirm Registration
+                    </button>
+                </form>
+            </div>
         </div>
-    </main>
+    </section>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-900 py-16 px-6 bg-slate-950/30">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-slate-600 text-[10px] font-semibold uppercase tracking-widest">
-            <p>© 2026 Chronos Symposium. Witness the unseen.</p>
-            <div class="flex space-x-8 mt-6 md:mt-0">
-                <a href="#" class="hover:text-indigo-400 transition-colors">Privacy Encryption</a>
-                <a href="#" class="hover:text-indigo-400 transition-colors">The Protocol</a>
+    <footer id="contact" class="bg-black py-16 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold mb-6 text-white">VGLUG <span
+                            class="text-slate-500">College</span></h2>
+                    <div class="space-y-4 text-slateGray">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt w-6 text-neonGreen"></i>
+                            <span>Gandhi Street, Chennai, Tamil Nadu</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt w-6 text-neonGreen"></i>
+                            <a href="tel:1324567890" class="hover:text-white transition-colors">1324567890</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope w-6 text-neonGreen"></i>
+                            <a href="mailto:symposium@vglug.edu"
+                                class="hover:text-white transition-colors">symposium@vglug.edu</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <div class="flex justify-center md:justify-end space-x-6 mb-6">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-neonGreen hover:text-black transition-all"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-neonGreen hover:text-black transition-all"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-neonGreen hover:text-black transition-all"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p class="text-slate-600 text-sm">© 2026 VGLUG College Symposium. All rights reserved.</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Navigation Logic
-        function navigateTo(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page-content').forEach(page => {
-                page.classList.remove('active');
-            });
+    <!-- Success Modal -->
+    <div id="successModal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="bg-slate-900 border border-neonGreen/30 p-8 rounded-3xl max-w-md w-full mx-4 text-center shadow-[0_0_50px_rgba(57,255,20,0.2)] transform transition-all scale-95 opacity-0"
+            id="modalContent">
+            <div class="w-20 h-20 bg-neonGreen/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-4xl text-neonGreen"></i>
+            </div>
+            <h3 class="text-2xl font-bold font-heading text-white mb-3">Registration Successful!</h3>
+            <p class="text-slateGray mb-8">Thank you for registering! Further details will be shared via email.</p>
+            <button id="closeModal"
+                class="bg-neonGreen text-deepBlue font-bold py-3 px-8 rounded-xl hover:bg-white transition-colors w-full">
+                Close
+            </button>
+        </div>
+    </div>
 
-            // Remove active nav styles
-            document.querySelectorAll('nav button, nav a').forEach(btn => {
-                btn.classList.remove('nav-active');
-            });
-
-            // Show selected page
-            const selectedPage = document.getElementById('page-' + pageId);
-            if (selectedPage) {
-                selectedPage.classList.add('active');
-            }
-
-            // Highlight nav item
-            const navItem = document.getElementById('nav-' + pageId);
-            if (navItem) {
-                navItem.classList.add('nav-active');
-            }
-
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Form Handling
-        const form = document.getElementById('reg-form');
-        const successMsg = document.getElementById('success-msg');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            form.style.display = 'none';
-            successMsg.style.display = 'block';
-        });
-
-        // Background Paralax
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-            document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
-        });
-
-        // Default state
-        window.onload = () => {
-            navigateTo('home');
-        };
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>

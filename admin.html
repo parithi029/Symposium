@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - VGLUG Symposium</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBlue: '#0f172a',
+                        neonGreen: '#39ff14',
+                        slateGray: '#94a3b8',
+                        accent: '#22d3ee',
+                        darkBg: '#020617'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-darkBg text-slate-100 font-sans">
+
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm">
+        <div class="bg-slate-900 border border-white/10 p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl">
+            <div class="text-center mb-8">
+                <i class="fas fa-lock text-4xl text-neonGreen mb-4"></i>
+                <h2 class="text-2xl font-bold font-heading">Admin Access</h2>
+                <p class="text-slateGray text-sm mt-2">Enter password to view sensitive data.</p>
+            </div>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <input type="password" id="passwordInput"
+                        class="w-full bg-deepBlue border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonGreen transition-colors"
+                        placeholder="Password" required>
+                </div>
+                <button type="submit"
+                    class="w-full bg-neonGreen hover:bg-white text-deepBlue font-bold py-3 rounded-xl transition-all">
+                    Unlock Dashboard
+                </button>
+                <p id="loginError" class="text-red-500 text-sm text-center hidden">Access Denied. Incorrect password.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboardContent" class="hidden min-h-screen">
+        <!-- Sidebar -->
+        <aside class="fixed left-0 top-0 h-full w-64 bg-deepBlue border-r border-white/5 hidden md:block">
+            <div class="p-6">
+                <h1 class="text-xl font-bold font-heading text-white tracking-wider mb-8">
+                    VGLUG <span class="text-neonGreen">ADMIN</span>
+                </h1>
+                <nav class="space-y-2">
+                    <a href="#" class="block px-4 py-2 rounded-lg bg-white/5 text-neonGreen font-medium">
+                        <i class="fas fa-users w-6"></i> Registrations
+                    </a>
+                    <a href="index.html"
+                        class="block px-4 py-2 rounded-lg text-slateGray hover:text-white hover:bg-white/5 transition-colors">
+                        <i class="fas fa-external-link-alt w-6"></i> View Website
+                    </a>
+                </nav>
+            </div>
+            <div class="absolute bottom-0 w-full p-6 border-t border-white/5">
+                <button id="logoutBtn" class="flex items-center text-slateGray hover:text-red-400 transition-colors">
+                    <i class="fas fa-sign-out-alt w-6"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:ml-64 p-8">
+            <header class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold font-heading">Registration Database</h2>
+                    <p class="text-slateGray text-sm">Real-time overview of symposium participants</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="refreshBtn" class="p-2 text-slateGray hover:text-neonGreen transition-colors"
+                        title="Refresh Data">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <div class="bg-deepBlue px-4 py-2 rounded-lg border border-white/10 text-sm">
+                        Total: <span id="totalCount" class="font-bold text-neonGreen">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Filters & Actions -->
+            <div class="mb-6 flex flex-col sm:flex-row justify-between gap-4">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slateGray"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, college..."
+                        class="bg-deepBlue border border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-neonGreen w-full sm:w-64">
+                </div>
+                <button
+                    onclick="if(confirm('Are you sure you want to delete ALL data?')) { localStorage.removeItem('symposium_registrations'); location.reload(); }"
+                    class="bg-red-500/10 text-red-400 border border-red-500/50 px-4 py-2 rounded-lg text-sm hover:bg-red-500 hover:text-white transition-colors">
+                    <i class="fas fa-trash-alt mr-2"></i> Clear Database
+                </button>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto bg-deepBlue/50 border border-white/5 rounded-2xl">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-900/50 text-xs uppercase text-slateGray font-semibold">
+                        <tr>
+                            <th class="px-6 py-4">Timestamp</th>
+                            <th class="px-6 py-4">Team Leader</th>
+                            <th class="px-6 py-4">Role / Dept</th>
+                            <th class="px-6 py-4">Contact</th>
+                            <th class="px-6 py-4">Event</th>
+                            <th class="px-6 py-4 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationsTable" class="divide-y divide-white/5">
+                        <!-- Rows will be injected by JS -->
+                        <tr>
+                            <td colspan="6" class="px-6 py-8 text-center text-slateGray italic">
+                                Loading data...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State (Hidden by default) -->
+            <div id="emptyState" class="hidden text-center py-20">
+                <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-inbox text-4xl text-slate-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-300">No Registrations Yet</h3>
+                <p class="text-slateGray text-sm mt-2">New registrations will appear here directly from the main site.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
